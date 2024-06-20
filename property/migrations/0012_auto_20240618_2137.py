@@ -14,9 +14,9 @@ class Migration(migrations.Migration):
         for flat in Flat.objects.all().iterator():
             phone_number = phonenumbers.parse(flat.owners_phonenumber, 'RU')
             flat.owner_pure_phone = (
-                f'+{phone_number.country_code}{phone_number.national_number}'
-                if phonenumbers.is_valid_number_for_region(phone_number, 'RU')
-                else ''
+                ''
+                if not phonenumbers.is_valid_number_for_region(phone_number, 'RU')
+                else f'+{phone_number.country_code}{phone_number.national_number}'
             )
             flat.save()
 
