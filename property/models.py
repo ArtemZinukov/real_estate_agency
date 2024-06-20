@@ -79,4 +79,4 @@ class Owner(models.Model):
                                          db_index=True)
 
     def __str__(self):
-        return f"{self.owner}"
+        return self.owner
