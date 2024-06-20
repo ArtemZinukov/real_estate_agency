@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     def fill_flat(apps, schema_editor):
         Flat = apps.get_model('property', 'Flat')
         Owner = apps.get_model('property', 'Owner')
-        for flat in Flat.objects.all():
+        for flat in Flat.objects.all().iterator():
             flat.flat_owners.set(
                 Owner.objects.filter(
                     owner=flat.owner,
