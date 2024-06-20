@@ -13,10 +13,11 @@ class Migration(migrations.Migration):
         Flat = apps.get_model('property', 'Flat')
         for flat in Flat.objects.all().iterator():
             phone_number = phonenumbers.parse(flat.owners_phonenumber, 'RU')
-            if phonenumbers.is_valid_number_for_region(phone_number, 'RU'):
-                flat.owner_pure_phone = f'+{phone_number.country_code}{phone_number.national_number}'
-            else:
-                flat.owner_pure_phone = ''
+            flat.owner_pure_phone = (
+                f'+{phone_number.country_code}{phone_number.national_number}'
+                if phonenumbers.is_valid_number_for_region(phone_number, 'RU')
+                else ''
+            )
             flat.save()
 
     operations = [
