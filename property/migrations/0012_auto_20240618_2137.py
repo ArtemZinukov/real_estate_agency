@@ -11,13 +11,11 @@ class Migration(migrations.Migration):
 
     def fill_pure_phonenumber(apps, schema_editor):
         Flat = apps.get_model('property', 'Flat')
-        for flat in Flat.objects.all().iterator():
-            phone_number = phonenumbers.parse(flat.owners_phonenumber, 'RU')
-            flat.owner_pure_phone = (
-                ""
-                if not phonenumbers.is_valid_number_for_region(phone_number, 'RU')
-                else f'+{phone_number.country_code}{phone_number.national_number}'
-            )
+        flats = Flat.objects.all()
+        for flat in flats.iterator():
+            owner_pure_phonenumber = phonenumbers.parse(flat.owners_phonenumber, 'RU')
+            if not phonenumbers.is_valid_number(owner_pure_phonenumber):
+                flat.owner_pure_phone = owner_pure_phonenumber
             flat.save()
 
     operations = [
