@@ -13,7 +13,7 @@ class Migration(migrations.Migration):
         Flat = apps.get_model('property', 'Flat')
         Owner = apps.get_model('property', 'Owner')
         for flat in Flat.objects.all().iterator():
-            flat.flat_owners.set(
+            flat.owners.set(
                 Owner.objects.filter(
                     owner=flat.owner,
                     owners_phonenumber=flat.owners_phonenumber,

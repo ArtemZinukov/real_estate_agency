@@ -55,9 +55,9 @@ class Flat(models.Model):
 
 class Complaint(models.Model):
     author = models.ForeignKey(User, verbose_name="автор жалобы", on_delete=models.CASCADE,
-                               related_name="author_complaints")
+                               related_name="author")
     flat = models.ForeignKey(Flat, verbose_name="квартира на которую жаловались", on_delete=models.CASCADE,
-                             related_name="flat_complaints")
+                             related_name="flat")
     text = models.TextField(blank=True, verbose_name="текст жалобы")
 
     def __str__(self):
@@ -71,7 +71,7 @@ class Owner(models.Model):
                                   verbose_name='Нормализованный номер владельца',
                                   db_index=True,
                                   region="RU")
-    flats = models.ManyToManyField(Flat, related_name="flat_owners", verbose_name='Квартиры в собственности',
+    flats = models.ManyToManyField(Flat, related_name="owners", verbose_name='Квартиры в собственности',
                                    db_index=True)
 
     def __str__(self):

@@ -20,7 +20,7 @@ class FlatAdmin(admin.ModelAdmin):
         (None, {
             'fields': ("created_at", "description", "price", "town", "town_district",
                        "address",  "living_area", "active",
-                       "construction_year", "new_building", "liked_by", "owner_pure_phone")
+                       "construction_year", "new_building", "liked_by", )
         }),
         ('Описание объекта', {
             'fields': ("rooms_number", "floor", "has_balcony",)
